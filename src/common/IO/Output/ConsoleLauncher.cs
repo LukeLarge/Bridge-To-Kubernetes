@@ -92,6 +92,10 @@ namespace Microsoft.BridgeToKubernetes.Common.IO.Output
             {
                 b.AppendLine($"export {v.Key}={v.Value}");
             }
+            if (scriptCmd == null || scriptCmd.Contains("../") || scriptCmd.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
             File.WriteAllText(scriptCmd, b.ToString());
             _log.Verbose($"Script {scriptCmd} created.");
 
