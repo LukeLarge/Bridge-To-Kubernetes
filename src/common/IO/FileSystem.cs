@@ -122,7 +122,17 @@ namespace Microsoft.BridgeToKubernetes.Common.IO
         /// <see cref="IFileSystem.CopyFile"/>
         /// </summary>
         public void CopyFile(string sourceFileName, string destFileName, bool overwrite = false)
-            => File.Copy(sourceFileName, destFileName, overwrite);
+        {
+            if (sourceFileName == null || sourceFileName.Contains("../") || sourceFileName.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
+            if (destFileName == null || destFileName.Contains("../") || destFileName.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
+            File.Copy(sourceFileName, destFileName, overwrite);
+        }
 
         /// <summary>
         /// <see cref="IFileSystem.DeleteDirectory"/>
@@ -182,7 +192,17 @@ namespace Microsoft.BridgeToKubernetes.Common.IO
         /// <see cref="IFileSystem.GetFilesInDirectory(string, string)"/>
         /// </summary>
         public string[] GetFilesInDirectory(string path, string searchPattern)
-            => Directory.GetFiles(path, searchPattern);
+        {
+            if (path == null || path.Contains("../") || path.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
+            if (searchPattern == null || searchPattern.Contains("../") || searchPattern.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
+            return Directory.GetFiles(path, searchPattern);
+        }
 
         /// <summary>
         /// <see cref="IFileSystem.GetFileLastWriteTimeUtc"/>
@@ -403,7 +423,13 @@ namespace Microsoft.BridgeToKubernetes.Common.IO
         /// <see cref="IFileSystem.WriteAllTextToFile(string, string, Encoding, int)"/>
         /// </summary>
         public void WriteAllTextToFile(string path, string contents, Encoding encoding, int maxAttempts = 1)
-            => WriteFileWithRetries(() => File.WriteAllText(path, contents, encoding), maxAttempts);
+        {
+            if (path == null || path.Contains("../") || path.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
+            WriteFileWithRetries(() => File.WriteAllText(path, contents, encoding), maxAttempts);
+        }
 
         /// <summary>
         /// <see cref="IFileSystem.WriteAllBytesToFile"/>
