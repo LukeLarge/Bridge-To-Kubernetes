@@ -136,7 +136,15 @@ install_tool() {
                     install_with_sudo dotnet-sdk7-0-300 --cask
                 fi 
             elif [[ $OSTYPE == "linux"* ]]; then
-                install_with_sudo dotnet-sdk-7.0
+                if [ "$DISTRIB_ID" == "ubuntu" ]; then
+                    wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+                    sudo dpkg -i packages-microsoft-prod.deb
+                    rm packages-microsoft-prod.deb
+                    sudo apt-get update
+                    sudo apt-get install -y dotnet-sdk-7.0
+                else
+                    install_with_sudo dotnet-sdk-7.0
+                fi
             else 
                 install_with_sudo dotnet-7.0-sdk -y
             fi
