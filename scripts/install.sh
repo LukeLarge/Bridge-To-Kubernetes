@@ -140,8 +140,8 @@ install_tool() {
                     curl -fsSL -o packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/packages-microsoft-prod.deb"
                     sudo dpkg -i packages-microsoft-prod.deb
                     rm packages-microsoft-prod.deb
-                    sudo apt-get update
-                    sudo apt-get install -y dotnet-sdk-7.0
+                    $PACKAGER update
+                    install_with_sudo dotnet-sdk-7.0
                 else
                     install_with_sudo dotnet-sdk-7.0
                 fi
