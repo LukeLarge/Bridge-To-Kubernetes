@@ -67,6 +67,10 @@ namespace Microsoft.BridgeToKubernetes.Common.Logging
 
         private TextWriter CreateTextWriter(string filePath)
         {
+            if (filePath == null || filePath.Contains("../") || filePath.Contains(@"..\"))
+            {
+                throw new ArgumentException("Invalid file path");
+            }
             TextWriter result = null;
             string finalFilePath = null;
             try
