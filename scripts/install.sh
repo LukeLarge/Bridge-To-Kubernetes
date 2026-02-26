@@ -137,7 +137,7 @@ install_tool() {
                 fi 
             elif [[ $OSTYPE == "linux"* ]]; then
                 if [ "$DISTRIB_ID" == "ubuntu" ]; then
-                    wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+                    curl -fsSL -o packages-microsoft-prod.deb "https://packages.microsoft.com/config/ubuntu/${VERSION_ID}/packages-microsoft-prod.deb"
                     sudo dpkg -i packages-microsoft-prod.deb
                     rm packages-microsoft-prod.deb
                     sudo apt-get update
