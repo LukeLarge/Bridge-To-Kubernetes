@@ -56,7 +56,7 @@ jobs:
         cluster-name: ${{ env.cluster_name }}
     - name: Setup kubectl for macos-latest
       if: ${{ matrix.os == 'macos-latest' }}
-      uses: azure/setup-kubectl@901a10e89ea615cf61f57ac05cecdf23e7de06d8 # v3.2
+      uses: step-security/setup-kubectl@fa3574e17195eaed56b1e9d9095c58d0aee24f03 # v4.0.1
       with:
         version: latest
     - name: Start minikube for ubuntu 
