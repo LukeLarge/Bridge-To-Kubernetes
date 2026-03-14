@@ -320,9 +320,14 @@ namespace Microsoft.BridgeToKubernetes.EndpointManager
                     perfLogger.SetSucceeded();
                     _log.Verbose($"Port {portMapping.PortNumber} freed.");
                 }
-                catch (Exception e)
+                catch (InvalidOperationException e)
                 {
-                    // The process has already exited
+                    // The process has already exited or is in an invalid state
+                    _log.ExceptionAsWarning(e);
+                }
+                catch (System.ComponentModel.Win32Exception e)
+                {
+                    // OS-level issue when trying to kill the process (for example, process not found)
                     _log.ExceptionAsWarning(e);
                 }
             }
