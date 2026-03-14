@@ -28,7 +28,7 @@ namespace Microsoft.BridgeToKubernetes.DevHostAgent.PortForward
         private readonly string ImdsEndpoint = "169.254.169.254";
         private const int _SocketBufferSize = 40960; // 40KB
         private string loggingPrefix = "";
-        private bool isManagedIdentity = false;
+        private readonly bool isManagedIdentity = false;
 
         /// <summary>
         /// Creates an instance that forwards another service's port.
