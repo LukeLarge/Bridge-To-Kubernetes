@@ -556,9 +556,9 @@ namespace Microsoft.BridgeToKubernetes.Library.Connect
             if (isRoutingSession)
             {
                 if ((remoteContainerConnectionDetails.Pod?.Spec?.InitContainers != null &&
-                     remoteContainerConnectionDetails.Pod.Spec.InitContainers.Where(c => c.Name.Contains("istio")).Any()) ||
+                     remoteContainerConnectionDetails.Pod?.Spec?.InitContainers.Where(c => c.Name.Contains("istio")).Any()) ||
                     (remoteContainerConnectionDetails.Pod?.Spec?.Containers != null &&
-                     remoteContainerConnectionDetails.Pod.Spec.Containers.Where(c => c.Name.Contains("istio")).Any()))
+                     remoteContainerConnectionDetails.Pod?.Spec?.Containers.Where(c => c.Name.Contains("istio")).Any()))
                 {
                     throw new UserVisibleException(this._operationContext, Resources.IsolationNotSupportedWithIstio);
                 }
